@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import Header from "./components/header";
+import Card from "./components/card";
+
 
 function App() {
+  const [getData, setGetData] = useState([]);
+  useEffect(() => {
+    const getDataListner = async () => {
+      try {
+        const data = await axios.get(
+          "https://d3dyfaf3iutrxo.cloudfront.net/general/upload/c7e096eae87840b8a56d4a0107b359db-data.json"
+        );
+        console.log(data.data);
+        setGetData(data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getDataListner();
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='header'><Header getData={getData} /></div>
     </div>
   );
 }
 
 export default App;
+
+// var numbers = [{ a: 2, address: { imdb: 4 } }, { address: { imdb: 2 } }, { address: { imdb: 5 } }]; 
+// numbers.sort(function (a, b) { return b.address.imdb - a.address.imdb; }); console.log(numbers);

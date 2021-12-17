@@ -30,6 +30,3 @@ function App() {
 }
 
 export default App;
-
-// var numbers = [{ a: 2, address: { imdb: 4 } }, { address: { imdb: 2 } }, { address: { imdb: 5 } }]; 
-// numbers.sort(function (a, b) { return b.address.imdb - a.address.imdb; }); console.log(numbers);

@@ -1,13 +1,13 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Card from "./card";
 
 function Movies({ getData }) {
 
     return (
         <>
-            {getData.map((el) => (
-                < Card element={el} />
+            {getData.map((el, index) => (
+                < Card key={index} element={el} />
             ))}
         </>
     );

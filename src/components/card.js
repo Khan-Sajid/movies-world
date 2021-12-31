@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import React, { useState } from "react";
 import '../App.css';
 
 function Card({ element }) {
@@ -8,7 +8,7 @@ function Card({ element }) {
 
     return (
         <>
-            <div className="card" onClick={() => { setBool(!bool) }}>
+            <div className="card" onMouseEnter={() => { setBool(true) }} onMouseLeave={() => { setBool(false) }}>
 
                 {bool ?
                     <>
@@ -25,7 +25,7 @@ function Card({ element }) {
                     </>
                     :
                     <>
-                        <img className="profile-photo" src={element.Poster} />
+                        <img className="profile-photo" src={element.Poster} alt="Poster" />
                         <h3>{element.Title}</h3>
                     </>}
             </div>

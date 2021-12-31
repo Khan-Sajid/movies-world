@@ -1,4 +1,3 @@
-import react from "react";
 import '../App.css';
 import { useState, useEffect } from "react";
 import Movies from './movies'
@@ -7,51 +6,74 @@ import Movies from './movies'
 function Header({ getData }) {
     const [input, setInput] = useState("");
     const [movie, setMovie] = useState("");
-    const [imdbArr, setImdbArr] = useState(getData);
-    const [metaScore, setMetaScore] = useState(getData);
-    const [yearWise, setYearWise] = useState(getData);
-    const [outputarr, setOutputarr] = useState(getData);
+    const [bool, setBool] = useState(false);
+    const [sortedData, setSortedData] = useState(getData);
+    const [searchArr, setSearchArr] = useState([]);
 
     function searchFunction() {
-        const result = outputarr.filter((el) => { el.Title.includes(`${movie}`) });
-        setOutputarr(result);
+        let result = getData.filter((el) => { if (el.Title.toUpperCase().includes(`${movie.toUpperCase()}`) && (movie !== "")) { return el } else { return ""; } });
+        setSearchArr(result);
     }
-    function byIMDb() {
-        const resImdb = getData.sort(function (a, b) { return b.imdbRating - a.imdbRating; });
-        setImdbArr(resImdb);
-    }
-    function byBoxOffice() {
-        const resMetaScore = getData.sort(function (a, b) { return b.Metascore - a.Metascore; });
-        setMetaScore(resMetaScore);
-    }
-    function byYear() {
-        const resYear = getData.sort(function (a, b) { return b.Year - a.Year; });
-        setYearWise(resYear);
-    }
-    useEffect(() => {
 
+    function byIMDb() {
+        setBool(false);
+        const resImdb = getData.sort(function (a, b) { return b.imdbRating - a.imdbRating; });
+        setSortedData([...resImdb]);
+    }
+
+    function byName() {
+        setBool(false);
+        const resName = getData.sort((a, b) => (a.Title).localeCompare(b.Title));
+        setSortedData([...resName]);
+    }
+
+    function byYear() {
+        setBool(false);
+        const resYear = getData.sort(function (a, b) { return b.Year - a.Year; });
+        setSortedData([...resYear]);
+    }
+
+    function boolfn() {
+        if (movie !== "") {
+            setBool(true);
+        }
+        else {
+            setBool(false);
+        }
+    }
+
+    useEffect(() => {
+        searchFunction();
+        boolfn();
     }, [movie])
 
     return (
         <>
-            <div><h1>Movies World</h1></div>
-            <div>
+
+            <div className='navbar'>
+                <div><h1 className='app-title'>Movies World</h1></div>
                 <div>
-                    <input type="text" placeholder="Search movie by name" value={input} onChange={(event) => { setInput(event.target.value) }} />
-                    <button onClick={() => {
-                        setMovie(input);
-                        searchFunction(movie);
-                        setInput("");
-                    }}>Search</button>
+                    <div>
+                        <input className='search-input' type="text" placeholder="Search movie by name" value={input} onChange={(event) => { setInput(event.target.value) }} />
+                        <button className='search-btn' onClick={() => {
+                            setMovie(input);
+                            setInput("");
+                        }}>Search</button>
+                    </div>
+                    <div>
+                        <button onClick={() => { byIMDb() }} >Sort By IMDb Rating</button>
+                        <button onClick={() => { byName() }} >Sort By Name</button>
+                        <button onClick={() => { byYear() }} >Sort By Year</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={() => { byIMDb() }} >Sort By IMDb Rating</button>
-                    <button onClick={() => { byBoxOffice() }} >Sort By Metascore</button>
-                    <button onClick={() => { byYear() }} >Sort By Year</button>
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    <Movies getData={getData} />
-                </div>
+
+            </div>
+            <div className='movies'>
+                {bool
+                    ?
+                    <>{searchArr.length ? <Movies getData={searchArr} /> : <h1 className='not-found'>Sorry ! No movie found. 😐</h1>} </>
+
+                    : <Movies getData={sortedData} />}
             </div>
         </>
     );

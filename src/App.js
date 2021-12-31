@@ -11,6 +11,7 @@ function App() {
     try {
       const data = await axios.get(
         "https://d3dyfaf3iutrxo.cloudfront.net/general/upload/c7e096eae87840b8a56d4a0107b359db-data.json"
+        , { headers: { 'Access-Control-Allow-Origin': '*' } }
       );
       setGetData(data.data);
       setBool(true);

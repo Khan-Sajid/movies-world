@@ -1,0 +1,25 @@
+.ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+}
+.pagination{
+    padding-bottom: 100px;
+}
+.li{
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgb(246, 255, 124);
+    margin: 6px;
+    padding: 5px;
+    min-width: 25px;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.li:hover{
+    background-color: rgb(241, 129, 23);
+}
+.para{
+    margin: 0px;
+}

@@ -92,3 +92,9 @@ h3{
   color: rgb(161, 12, 7);
   font-family: cursive;
 }
+.pagenum{
+  margin: 50px;
+  font-weight: bold;
+  font-size: 2em;
+  color: rgb(3, 3, 88);
+}

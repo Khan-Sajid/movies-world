@@ -6,45 +6,43 @@ import Pagination from './Pagination';
 
 function Header({ getData }) {
     const [input, setInput] = useState("");
-    const [movie, setMovie] = useState("");
     const [outputData, setOutputData] = useState(getData);
     const [currentPage, setCurrentPage] = useState(1);
     const [moviesPerPage] = useState(20);
 
     function searchFunction() {
-        if (movie.length) {
-            let result = getData.filter((el) => el.Title.toUpperCase().includes(`${movie.toUpperCase()}`));
+        setCurrentPage(1);
+        if (input.length) {
+            let result = getData.filter((el) => el.Title.toUpperCase().includes(`${input.toUpperCase()}`));
             setOutputData([...result]);
         } else {
             setOutputData([...getData]);
         }
+        setInput("");
+
     }
 
     function byIMDb() {
+        setCurrentPage(1);
         const resImdb = getData.sort(function (a, b) { return b.imdbRating - a.imdbRating; });
         setOutputData([...resImdb]);
-        setCurrentPage(1);
-        setMovie("");
     }
 
     function byName() {
+        setCurrentPage(1);
         const resName = getData.sort((a, b) => (a.Title).localeCompare(b.Title));
         setOutputData([...resName]);
-        setCurrentPage(1);
-        setMovie("");
     }
 
     function byYear() {
+        setCurrentPage(1);
         const resYear = getData.sort(function (a, b) { return b.Year - a.Year; });
         setOutputData([...resYear]);
-        setCurrentPage(1);
-        setMovie("");
     }
 
     useEffect(() => {
-        searchFunction();
         window.scrollTo(0, 0);
-    }, [movie, currentPage])
+    }, [currentPage])
 
     const indexOfLastMovie = currentPage * moviesPerPage;
     const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
@@ -55,14 +53,14 @@ function Header({ getData }) {
     return (
         <>
             <div className='navbar'>
-                <div><h1 className='app-title' onClick={() => { setOutputData(getData) }}>Movies World</h1></div>
+                <div><h1 className='app-title' onClick={() => { setOutputData(getData); setCurrentPage(1) }}>Movies World</h1></div>
                 <div>
                     <div>
-                        <input className='search-input' type="text" placeholder="Search movie by name" value={input} onChange={(event) => { setInput(event.target.value) }} />
+                        <input className='search-input' type="text" placeholder="Search movie by name" value={input} onChange={(event) => {
+                            setInput(event.target.value);
+                        }} />
                         <button className='search-btn' onClick={() => {
-                            setMovie(input);
-                            setInput("");
-                            setCurrentPage(1);
+                            searchFunction();
                         }}>Search</button>
                     </div>
                     <div>

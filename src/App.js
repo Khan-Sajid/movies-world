@@ -26,15 +26,13 @@ function App() {
 
   return (
     <div className="App">
-      <div className="header">
-        {bool ? (
-          <Header getData={getData} />
-        ) : (
-          <div className="loading">
-            <img src="https://www.contextsensitivesolutions.org/wp-content/uploads/2021/02/1519081000_compare-ajax-loader.gif"></img>
-          </div>
-        )}
-      </div>
+      {bool ? (
+        <Header getData={getData} />
+      ) : (
+        <div className="loading">
+          <img src="https://www.contextsensitivesolutions.org/wp-content/uploads/2021/02/1519081000_compare-ajax-loader.gif"></img>
+        </div>
+      )}
     </div>
   );
 }

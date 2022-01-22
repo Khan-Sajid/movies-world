@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   list-style: none;
+  padding-inline-start: 0px;
 }
 .pagination {
   padding-bottom: 100px;

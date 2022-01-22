@@ -3,9 +3,12 @@
   padding: 0px;
   text-align: center;
 }
-.loading,
+.loading {
+  padding-top: 100px;
+  height: 100vh;
+}
 .not-found {
-  padding: 100px;
+  height: 32vh;
 }
 .app-title {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

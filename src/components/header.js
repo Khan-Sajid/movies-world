@@ -1,7 +1,7 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import Movies from "./movies";
-import Pagination from "./Pagination";
+import Pagination from "./pagination/Pagination";
 
 function Header({ getData }) {
   const [input, setInput] = useState("");
